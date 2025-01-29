@@ -1,0 +1,29 @@
+def f(n):
+    sum = 0
+    for i in range(1, n + 1):
+        sum = sum + i
+    return sum
+
+def g(n):
+    sum = 0
+    for i in range(1, n + 1):
+        sum = sum + i + f(i)
+    return sum
+
+def h(n):
+    return f(n) + g(n)
+
+Складність: max(O(f), O(g)) = O(n^2)
+
+
+Після оптимізації:
+def f(n):
+    return n * (n + 1) / 2
+
+def g(n):
+    return n * (n + 1) * (4 * n + 9) // 12
+
+def h(n):
+    return f(n) + g(n)
+
+Складність: max(O(f), O(g)) = O(1)

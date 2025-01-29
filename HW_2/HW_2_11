@@ -1,0 +1,35 @@
+def f(n):
+    sum = 0
+    for i in range(1, n + 1):
+        sum = sum + i
+    return sum
+
+Складність: O(n)
+
+
+def g(n):
+    sum = 0                     |O(1)
+    for i in range(1, n + 1):   |O(n)
+        sum = sum + i + f(i)    |O(n^2)
+    return sum                  |O(1)
+
+Якщо не оптимізувати функцію, то:
+Складність: O(n^2)
+Res: sum = n(n+1)(2n+1)/12 + n(n+1)/4
+
+
+Покращена функція:
+def g(n):
+    sum = 0
+    for i in range(1, n + 1):
+        sum += i + (i * (i + 1)) / 2
+    return sum
+
+Складність: O(n)
+
+
+Версія 3.0:
+def g(n):
+    return n * (n + 1) * (4 * n + 9) // 12
+
+Складність: O(1)
