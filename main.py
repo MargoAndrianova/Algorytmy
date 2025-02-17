@@ -1,11 +1,20 @@
-def sum_i(n):
-    sum = 1
-    for i in range(1, n + 1):
-        el = 1
-        for j in range(i):
-            el *= i
-        sum *= 1/(1 + el)
-    return sum
+import numpy as np
+import matplotlib.pyplot as plt
 
-if __name__ == '__main__':
-    print(sum_i(3))
+num = [10, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
+faces = [1, 2, 3, 4, 5, 6]
+results = {}
+
+for n in num:
+    rolls = np.random.randint(1, 7, size=n)  # Симуляція кидків
+    probabilities = [np.sum(rolls == face) / n for face in faces]  # Ймовірності випадіння
+    results[n] = probabilities
+
+for n, probs in results.items():
+    plt.figure()
+    plt.bar(faces, probs, tick_label=faces)
+    plt.title(f"Емпіричні ймовірності після {n} кидків")
+    plt.xlabel("Грань кубика")
+    plt.ylabel("Ймовірність")
+    plt.ylim(0, 0.4)
+    plt.show()
