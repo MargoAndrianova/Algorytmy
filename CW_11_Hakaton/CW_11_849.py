@@ -1,14 +1,15 @@
-def solve(n, min_val):
+def solve(n: int, min_val: int) -> list[list[int]]:
     if n == 0:
-        yield []
+        return [[]]
+    result = []
     for i in range(min_val, n + 1):
         for tail in solve(n - i, i):
-            yield [i] + tail
-
+            result.append([i] + tail)
+    return result
 
 if __name__ == '__main__':
-    N = int(input())
-    parts = [p for p in solve(N, 1) if len(p) > 1]
-    parts.sort(key=lambda p: (p[0], -p[-1], len(p), p))
-    for p in parts:
-        print("+".join(map(str, p)))
+    N = int(input().strip())
+    for part in solve(N, 1):
+        if len(part) == 1:
+            continue
+        print("+".join(map(str, part)))
