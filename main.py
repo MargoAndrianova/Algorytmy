@@ -1,16 +1,30 @@
-def solve(N: int, min_val: int) -> list[list[int]]:
-    if N == 0:
-        return [[]]
-    res = []
-    for i in range(min_val, N+1):
-        for j in solve(N-i, i):
-            res.append([i] + j)
-    return res
+import numpy as np
+import matplotlib.pyplot as plt
 
+# Сітка для побудови
+x_vals = np.linspace(-5, 5, 20)
+y_vals = np.linspace(-5, 5, 20)
+X, Y = np.meshgrid(x_vals, y_vals)
 
-if __name__ == '__main__':
-    N = int(input())
-    for i in solve(N, 1):
-        if len(i) == 1:
-            continue
-        print("+".join(map(str, i)))
+# Векторне поле для системи: dx/dt = y, dy/dt = y - 2x
+U = Y
+V = Y - 2*X
+
+# Нормалізуємо вектори для гарного відображення напрямів
+magnitude = np.sqrt(U**2 + V**2)
+U_norm = U / magnitude
+V_norm = V / magnitude
+
+# Побудова фазового портрета
+plt.figure(figsize=(8, 8))
+plt.quiver(X, Y, U_norm, V_norm, angles='xy')
+plt.title("Фазовий портрет системи:\n$\dot{x} = y$, $\dot{y} = y - 2x$")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.axhline(0, color='gray', linewidth=0.5)
+plt.axvline(0, color='gray', linewidth=0.5)
+plt.grid(True)
+plt.xlim(-5, 5)
+plt.ylim(-5, 5)
+plt.gca().set_aspect('equal')
+plt.show()
