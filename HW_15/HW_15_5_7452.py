@@ -1,12 +1,12 @@
 class Node:
     def __init__(self, data: int):
-        self.data: int = data
-        self.next: 'Node | None' = None
+        self.data = data
+        self.next = None
 
 class List:
     def __init__(self):
-        self.head: 'Node | None' = None
-        self.tail: 'Node | None' = None
+        self.head = None
+        self.tail = None
 
     def addToTail(self, val: int) -> None:
         new_node = Node(val)
@@ -18,26 +18,24 @@ class List:
             self.tail = new_node
 
     def Print(self) -> None:
-        cur = self.head
-        while cur is not None:
-            print(cur.data, end = " ")
-            cur = cur.next
-        print()
+        current = self.head
+        output = []
+        while current is not None:
+            output.append(str(current.data))
+            current = current.next
+        print(" ".join(output))
 
     def PrintReverse(self) -> None:
-        def rec_print(node: 'Node | None') -> None:
+        def rec_print(node):
             if node is None:
-                return
-            rec_print(node.next)
-            print(node.data, end = " ")
-        rec_print(self.head)
-        print()
+                return []
+            return rec_print(node.next) + [str(node.data)]
+        print(" ".join(rec_print(self.head)))
 
-if __name__ == '__main__':
-    n = int(input().strip())
-    input_data = list(map(int, input().split()))
-    linked_list = List()
-    for number in input_data:
-        linked_list.addToTail(number)
-    linked_list.Print()
-    linked_list.PrintReverse()
+n = int(input().strip())
+nums = list(map(int, input().split()))
+linked_list = List()
+for num in nums:
+    linked_list.addToTail(num)
+linked_list.Print()
+linked_list.PrintReverse()
