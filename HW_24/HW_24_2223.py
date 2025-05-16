@@ -30,7 +30,7 @@ dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
 visited = [[[False for _ in range(n)] for _ in range(m)] for _ in range(h)]
 q = deque()
-q.append((*start, 0))  # (z, x, y, time)
+q.append((*start, 0))
 visited[start[0]][start[1]][start[2]] = True
 
 while q:
@@ -40,7 +40,6 @@ while q:
         print(time)
         break
 
-    # Горизонтальні переміщення
     for dx, dy in dirs:
         nx, ny = x + dx, y + dy
         if 0 <= nx < m and 0 <= ny < n:
@@ -48,7 +47,6 @@ while q:
                 visited[z][nx][ny] = True
                 q.append((z, nx, ny, time + 5))
 
-    # Переміщення вниз
     if z + 1 < h:
         if lab[z + 1][x][y] == '.' and not visited[z + 1][x][y]:
             visited[z + 1][x][y] = True

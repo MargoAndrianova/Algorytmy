@@ -16,12 +16,11 @@ def read_input():
     return H, W, grid, start1, start2, exit_pos
 
 def bfs_escape(H, W, grid, s1, s2, exit_pos):
-    # Тепер dirs у впорядкованому (лексикографічному) порядку
     dirs = [
-        ('D',  1, 0),
-        ('L',  0,-1),
-        ('R',  0, 1),
+        ('R', 0, 1),
+        ('L', 0, -1),
         ('U', -1, 0),
+        ('D',  1, 0)
     ]
     start = (s1[0], s1[1], s2[0], s2[1])
     goal  = (exit_pos[0], exit_pos[1], exit_pos[0], exit_pos[1])
