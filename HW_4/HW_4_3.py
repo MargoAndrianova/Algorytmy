@@ -1,20 +1,14 @@
 def f(x):
     return x**3 + x + 1
 
-def binary_search_solution():
-    l = 0.0
-    h = 10.0
-    eps = 1e-7
-
-    while h - l > eps:
-        mid = l + (h - l) / 2.0
-        if f(mid) > 5:
-            h = mid
+def binary_search_real(f, c, left, right, eps=1e-6):
+    while right - left > eps:
+        mid = (left + right) / 2
+        if f(mid) < c:
+            left = mid
         else:
-            l = mid
+            right = mid
+    return right
 
-    return l
-
-if __name__ == '__main__':
-    x = binary_search_solution()
-    print(x)
+result = binary_search_real(f, 5, 0, 10)
+print(f"Min x: {result:.5f}")

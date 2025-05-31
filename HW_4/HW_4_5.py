@@ -1,19 +1,16 @@
 def f(x):
     return x**3 + 4*x**2 + x - 6
 
-def binary_search_solution():
-    l = 0.0
-    h = 2.0
-    eps = 1e-7
-
-    while h - l > eps:
-        mid = l + (h - l) / 2.0
-        if f(mid) < 0:
-            l = mid
+def binary_search_neighbors(f, left, right, eps=1e-8):
+    while right - left > eps:
+        mid = (left + right) / 2
+        if abs(f(mid)) < eps:
+            return mid
+        if f(left) * f(mid) < 0:
+            right = mid
         else:
-            h = mid
-    return l
+            left = mid
+    return (left + right) / 2
 
-if __name__ == '__main__':
-    x = binary_search_solution()
-    print(x)
+res = binary_search_neighbors(f, 0, 2)
+print(f"Solution: {res:.5f}")

@@ -3,19 +3,16 @@ import math
 def f(x):
     return math.sin(x) - x/3
 
-def binary_search_solution():
-    l = 1.6
-    h = 3.0
-    eps = 1e-7
-
-    while h - l > eps:
-        mid = l + (h - l) / 2.0
-        if f(mid) > 0:
-            h = mid
+def binary_search_by_value(f, left, right, eps=1e-6):
+    while True:
+        mid = (left + right) / 2
+        value = f(mid)
+        if abs(value) < eps:
+            return mid
+        if f(left) * value < 0:
+            right = mid
         else:
-            l = mid
-    return l
+            left = mid
 
-if __name__ == '__main__':
-    x = binary_search_solution()
-    print(x)
+res = binary_search_by_value(f, 1.6, 3)
+print(f"Solution: {res:.5f}")
